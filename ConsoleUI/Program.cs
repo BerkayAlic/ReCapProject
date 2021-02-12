@@ -12,37 +12,20 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine("BrandId of the car :" + car.BrandId);
-                Console.WriteLine("Model Year of the car : " + car.ModelYear);
-                Console.WriteLine("Description : " + car.Descriptions);
-                Console.WriteLine("Price of the car : " + car.DailyPrice);
-                Console.WriteLine("------------------");
-            }
-
-            Console.WriteLine("Our new car has been produced for our special customers");
-            Console.WriteLine("The price of car which has Id = 2 has a discount it is very big oppurtunity");
-            Console.WriteLine("The car which is id = 3 has been deleted");
-            Console.WriteLine("Here is our new catalogue for our costomers");
-            Console.WriteLine("---------------");
-
             Car car1 = new Car
-            {
-                CarName = "LKA",                
+            {              
+                CarName = "A",
                 ColorId = 2,
-                BrandId = 3,
-                DailyPrice = 54000,
-                Descriptions = "Private car for elegant customers",
-                ModelYear = 2020
+                BrandId = 1,
+                DailyPrice = 65000,
+                Descriptions = "New car of the year",
+                ModelYear = 2021
             };
 
             Car car2 = new Car
             {
                 CarName = "HRWSO",
-                CarId = 2,
+                CarId = 7,
                 ColorId = 3,
                 BrandId = 3,
                 DailyPrice = 54000,
@@ -52,16 +35,22 @@ namespace ConsoleUI
 
             Car car3 = new Car
             {
-                CarId = 3,
+                CarId = 6,
             };
 
-            carManager.Add(car1);
-            carManager.Update(car2);
-            carManager.Delete(car3);
+            
+            //carManager.Delete(car3);
 
-            foreach (var car in carManager.GetAll())
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            var result1 = carManager.Update(car2);
+            var result = carManager.Add(car1);
+            // carManager.Delete(car3);
+
+            foreach (var car in carManager.GetAll().Data)
             {
-                Console.WriteLine("======");
+                Console.WriteLine("Id of the car :" + car.CarId);
+                Console.WriteLine("Name of the car : " + car.CarName);
                 Console.WriteLine("BrandId of the car :" + car.BrandId);
                 Console.WriteLine("Model Year of the car : " + car.ModelYear);
                 Console.WriteLine("Description : " + car.Descriptions);
@@ -69,32 +58,18 @@ namespace ConsoleUI
                 Console.WriteLine("------------------");
             }
 
-            //ColorManager colorManager = new ColorManager(new EfColorDal());
+            Console.WriteLine(result.Message);
+            Console.WriteLine(result1.Message);
+            //CarManager carManager1 = new CarManager(new EfCarDal());
 
-            //foreach (var color in colorManager.GetAll())
+            //foreach (var car in carManager1.GetCarDetails().Data)
             //{
-            // Console.WriteLine(color.ColorName);
-            //Console.WriteLine(color.ColorId);
+            //    Console.WriteLine("Car name is :" + car.CarName);
+            //    Console.WriteLine("Brand of the Car : " + car.BrandName);
+            //    Console.WriteLine("Color of the Car : " + car.ColorName);
+            //    Console.WriteLine("Price of the car : " + car.DailyPrice);
+            //    Console.WriteLine("------------------");
             //}
-
-            //BrandManager brandManager = new BrandManager(new EfBrandDal());
-
-            //foreach (var brand in brandManager.GetAll())
-            //{
-            //    Console.WriteLine(brand.BrandName);
-            //}
-
-            
-            CarManager carManager1 = new CarManager(new EfCarDal());
-
-            foreach (var car in carManager1.GetCarDetails())
-            {
-                Console.WriteLine("Car name is :" + car.CarName);
-                Console.WriteLine("Brand of the Car : " + car.BrandName);
-                Console.WriteLine("Color of the Car : " + car.ColorName);
-                Console.WriteLine("Price of the car : " + car.DailyPrice);
-                Console.WriteLine("------------------");
-            }
         }
     }
 }
