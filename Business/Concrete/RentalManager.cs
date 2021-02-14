@@ -57,6 +57,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-
+        public IDataResult<Rental> GetById(int id)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
+        }
     }
 }
