@@ -28,9 +28,13 @@ namespace Business.Constants
         public static string RentalDeleted = "The rented car is deleted succesfully";
         public static string RentalsListed;
         public static string RentalUpdated = "The renting information has been updated";
-        internal static string UserAdded = "User are added";
-        internal static string UserDeleted = "User is deleted";
-        internal static string UsersListed; 
-        internal static string UserUpdated = "User is updated";
+        public static string UserAdded = "User are added";
+        public static string UserDeleted = "User is deleted";
+        public static string UsersListed;
+        public static string UserUpdated = "User is updated";
+        public static string CarImageAdded = "Car Image is added";
+        public static string CarImageAddingProcessFailed = "Car Image could not be added";
+        public static string CarImageUpdated;
+        
     }
 }
