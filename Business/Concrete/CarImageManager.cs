@@ -1,12 +1,16 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.BusinessRules;
+using Core.Utilities.FileHelper;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -20,13 +24,15 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        public IResult Add(CarImage carImage)
+        public IResult Add(CarImage carImage, IFormFile file)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageExceeded(carImage.CarId));
             if (result!=null)
             {
                 return result;
             }
+
+            carImage.ImagePath = FileHelper.AddAsync(file);
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.CarImageAdded);
         }
@@ -67,7 +73,7 @@ namespace Business.Concrete
         {
             string LogoPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).FullName + "\\Images\\logo.png";
             var result = _carImageDal.GetAll(c => c.CarId == id);
-            if (result.Count!=0)
+            if (result.Count != 0)
             {
                 return new SuccessDataResult<List<CarImage>>(result);
             }

@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             }
 
             carImage.ImagePath = newNameOfImage + filePath;
-            var result = _carImageservice.Add(carImage);
+            var result = _carImageservice.Add(carImage, file);
 
             if (result.Success)
             {
@@ -101,15 +101,29 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add2")]
-        public IActionResult add2(CarImage carImage)
+        //[HttpPost("add2")]
+        //public IActionResult add2(CarImage carImage)
+        //{
+        //    var result = _carImageservice.Add(carImage, file);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+        //}
+
+
+        [HttpGet("getbycarid")]
+        public IActionResult GetByCarId(int id)
         {
-            var result = _carImageservice.Add(carImage);
+            var result = _carImageservice.GetByCarId(id);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
     }
+
 }
